@@ -32,7 +32,7 @@ keywords = ["tools", "ligo", "STAT 259"]
 dynamic = ["version"]
 
 [project.urls]
-Homepage = "https://github.com/UCB-stat-159-f25/hw3-jose-r-aguilar
+Homepage = "https://github.com/UCB-stat-159-f25/hw3-jose-r-aguilar"
 Issues = "https://github.com/UCB-stat-159-f25/hw3-jose-r-aguilar/issues"
 
 [tool.setuptools]
