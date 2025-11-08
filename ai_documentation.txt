@@ -1,0 +1,32 @@
+Using Chat-GPT: 
+
+Prompt: Create a Makefile 
+
+There should be a Makefile with the following targets. env: creates and configures the environment (but does not activate it). If you have already created an environment of the same name, have the command instead update the environment with a provided environment.yml file html: build the html rendering of your MyST site (i.e. what’s produced when you call myst build --html on the command line). Note this build can only be viewed locally. clean: clean up the figures, audio and _build folders, but keep folders.
+
+Output: 
+
+ENV_NAME ?= stat259
+ENV_FILE ?= environment.yml
+
+
+.PHONY: env html clean
+
+env:
+	@source $(CONDA_BASE)/etc/profile.d/conda.sh
+	if conda env list | awk '{print $$1}' | grep -qx "$(ENV_NAME)"; then
+		echo "Updating existing environment: $(ENV_NAME)"
+		conda env update -n $(ENV_NAME) -f $(ENV_FILE) --prune
+	else
+		echo "Creating new environment: $(ENV_NAME)"
+		conda env create -n $(ENV_NAME) -f $(ENV_FILE)
+	fi
+
+html:
+	myst build --html
+
+clean:
+	@echo "Cleaning contents of figures/, audio/, and _build/ (keeping folders)..."
+	@mkdir -p figures audio _build
+	rm -rf figures/* audio/* _build/*
+	@echo "✅ Clean complete."
