@@ -3,13 +3,12 @@ import numpy as np
 from scipy.io import wavfile
 from scipy.signal import windows
 from scipy.interpolate import interp1d
-from scipy.signal import butter, filtfilt, iirdesign, zpk2tf, freqz
-
+from scipy.signal import filtfilt
+import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
 
 make_plots = 1
 plottype = "png"
-import matplotlib.pyplot as plt
-import matplotlib.mlab as mlab
 
 # function to whiten data
 def whiten(strain, interp_psd, dt):
@@ -52,7 +51,7 @@ def reqshift(data,fshift=100,sample_rate=4096):
 # -- To calculate the PSD of the data, choose an overlap and a window (common to all detectors)
 #   that minimizes "spectral leakage" https://en.wikipedia.org/wiki/Spectral_leakage
 def calculate_plot_PSD(fs, template_p, template_c, time, template_offset, strain_L1, strain_H1,
-                      dt, bb, ab, strain_L1_whitenbp, strain_H1_whitenbp, tevent, eventname):
+                      dt, bb, ab, strain_L1_whitenbp, strain_H1_whitenbp, tevent, eventname, normalization):
     NFFT = 4*fs
     psd_window = np.blackman(NFFT)
     # and a 50% overlap:
@@ -207,3 +206,5 @@ def calculate_plot_PSD(fs, template_p, template_c, time, template_offset, strain
             plt.legend(loc='upper left')
             plt.title(det+' ASD and template around event')
             plt.savefig("figures/"+eventname+"_"+det+"_matchfreq."+plottype)
+
+    return template_L1, template_H1
