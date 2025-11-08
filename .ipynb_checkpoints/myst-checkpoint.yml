@@ -3,7 +3,7 @@ version: 1
 project:
   id: 8ad7b035-1c68-4a06-a74d-1493745c599c
   title: STAT 259 HW 3
-  authors: "Jose Aguilar"
+  authors: "Jose R. Aguilar"
   github: https://github.com/UCB-stat-159-f25/hw3-jose-r-aguilar
   toc:
     - file: README.md
